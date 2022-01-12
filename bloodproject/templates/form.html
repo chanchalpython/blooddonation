@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <title>Form</title>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" xmlns="http://www.w3.org/1999/html">
+  <a class="navbar-brand" href="#" style="color:Crimson;">
+      <img src="{% static 'img/sublogo.jpg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+      <b style="width:1220px;height:40px;">BLOOD BANK</b>
+  </a><a class="nav-link active" href="{% url 'demo' %}" style="padding-left:20px">Back to Home</a>
+</nav>
+
+
+<body>
+<div style="height:480px;background-color:DeepPink">
+    {% block content %}
+     {% if user.is_authenticated %}
+    <b style="color:crimson;font-size:20;">
+        <marquee dir="left-right">Welcome! {{user.first_name}}</marquee></b>
+
+    {% endif %}
+    <center>
+        <h2><u><b>Fill the Form</b></u></h2>
+<br>
+    <table>
+    <form  action="fillform" method="post">
+    {% csrf_token %}
+
+        <tr><td><label>Name : </label></td><td><input type="text" name="name" placeholder="Enter Your Name"></td></tr>
+        <tr><td><label>Age : </label></td><td><input type="number" name="age" placeholder="Enter Your Age"></td></tr>
+        <tr><td><label>Address : </label></td><td><input type="text" name="address" placeholder="Enter Your Address"></td></tr>
+        <tr><td><label>Blood Group : </label></td><td><select name="bgroup">
+            <option value="">-Select Blood Group-</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option></select> </td></tr>
+        <tr><td><label>Phone number : </label></td><td><input type="text" name="mob" placeholder="Enter Your Phone number"></td></tr>
+        <tr><td colspan="2"><center><button type="submit" class="btn btn-info">SUBMIT</button></center></td></tr>
+<!--    {% if messages %}-->
+<!--        {% for result in messages %}-->
+<!--        <b>{{result}}</b>-->
+<!--        {% endfor %}-->
+<!--        {% endif %}-->
+    </form></table>
+
+        <br>
+
+
+
+
+
+    <div><a href="{% url 'logout' %}"><button type="submit" class="btn btn-primary"><b style="font-size:22;">Logout</b></button></a></div>
+ {% for message in messages %}
+  <h1>{{message}}</h1>
+  {% endfor %}
+{% endblock %}
+        </center></div>
+<br>
+<footer style="background-color:pink;
+font-size:14px;height:20px;">
+<div class="footer navbar-fixed-bottom my_footer">
+    <center><p>&copy;Blood Bank.All Rights Reserved.</p></center>
+</div>
+</footer>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</center>
+</body>
+</html>
